@@ -25,29 +25,19 @@ import com.vaadin.flow.router.Route;
 @Route(value = "")
 public class MainView extends VerticalLayout {
 
-     private TextField name;
-     private Button AddCountry;
-     private ComboBox<Country> CountriesBox;
+     private TextField sales;
+     private TextField hours;
+     private Button AddEmployee;
+     private ComboBox<Employee> comboBox;
      private TabSheet tabsheet;
-     private Dialog dialog = new Dialog();
-     public ArrayList<Country> Countries = new ArrayList<>();
-     private Grid<Country> grid = new Grid<>(Country.class);
+
+     public ArrayList<Employee> employees = new ArrayList<>();
+     private Grid<Employee> grid = new Grid<>(Employee.class);
 
      //#region DialogLayout
      public VerticalLayout createVerticalDialogLayout() {
           VerticalLayout verticalLayout = new VerticalLayout();
-          TextField nameField = new TextField("Your name", "John");
-          TextField SurnameField = new TextField("Your surname", "Doe");
-          Checkbox checkbox1 = new Checkbox("Check me!");
-          Checkbox checkbox2 = new Checkbox("Check me too!");
-          RadioButtonGroup<String> radioButtons = new RadioButtonGroup<String>("Choose your gender:");
-          ArrayList<String> Genders = new ArrayList<>();
-          Genders.add("Male");
-          Genders.add("Female");
-          radioButtons.setItems(Genders);
-          DatePicker datepicker = new DatePicker();
-          datepicker.setValue(LocalDate.now());
-          verticalLayout.add(nameField, SurnameField, checkbox1, checkbox2, radioButtons, datepicker);
+
 
           return verticalLayout;
 
@@ -61,52 +51,33 @@ public class MainView extends VerticalLayout {
           hl.setDefaultVerticalComponentAlignment(Alignment.BASELINE);
 
           // ArrayList Setup
-          Countries.add(new Country("USA", "North america", 500000, "Washington"));
-          Countries.add(new Country("Germany", "Europe", 500000, "Berlin"));
-          Countries.add(new Country("Spain", "Europe", 500000, "Madrid"));
+          
 
-          // CountryBox
-          this.CountriesBox = new ComboBox<Country>("Select country");
-          CountriesBox.setItems(Countries);
-          CountriesBox.setItemLabelGenerator(Country::getName);
+          // ComboBox
+          this.comboBox = new ComboBox<Employee>("Type of employee");
+          comboBox.setItems();
+          
 
           // Components
-          name = new TextField("Your name");
-          AddCountry = new Button("Add Country");
-          AddCountry.addClickListener(e -> {
-               Countries.add(new Country(name.getValue(), null, 0));
-               Notification.show("Country of " + name.getValue() + " Added correctly", 1000,
-                         com.vaadin.flow.component.notification.Notification.Position.TOP_END);
+          sales = new TextField("# Montly sales");
+          hours = new TextField("Extra hours");
+          AddEmployee = new Button("Calculate");
+          AddEmployee.addClickListener(e -> {
+               
           });
-          AddCountry.addClickShortcut(Key.ENTER);
+          AddEmployee.addClickShortcut(Key.ENTER);
 
-          // Dialog
-          dialog.setHeaderTitle("Create person");
-          VerticalLayout dialogLayout = createVerticalDialogLayout();
-          dialog.add(dialogLayout);
-          Button dialogButton = new Button("Show Dialog", e -> dialog.open());
 
           // Tabsheet
           tabsheet = new TabSheet();
           VerticalLayout tabLayoutDashboard = new VerticalLayout();
-          // Grid
-          grid.setColumns("name", "continent");
-          grid.addColumn(country -> country.getCity().getName())
-                    .setHeader("City")
-                    .setSortable(true);
-          grid.addColumn(country -> country.getPopulation())
-                    .setHeader("Population")
-                    .setSortable(true);
-          grid.setItems(Countries);
+          
 
           // ADD
-          tabLayoutDashboard.add(dialogButton);
-          tabsheet.add("Dashboard", tabLayoutDashboard);
-          tabsheet.add("Payment",
-                    new Div(new Text("This is the Payment Tab")));
+         
           
-          hl.add(name, AddCountry);
-          add(CountriesBox, hl, tabsheet, grid);
+          hl.add(sales, hours, AddEmployee);
+          add(comboBox, hl);
      }
 
 }
