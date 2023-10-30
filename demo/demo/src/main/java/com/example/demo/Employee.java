@@ -1,5 +1,6 @@
 package com.example.demo;
 
+
 public class Employee {
      public String employeeType;
      public int monthlySales;
@@ -9,18 +10,18 @@ public class Employee {
      public float preTaxSalary;
      public float postTaxSalary;
 
+     public Employee(String employeeType, int monthlySales, float extraHours) {
+          this.employeeType = employeeType;
+          this.monthlySales = monthlySales;
+          this.extraHours = extraHours;
+     }
+
      public float getPostTaxSalary() {
           return postTaxSalary;
      }
 
      public void setPostTaxSalary(float postTaxSalary) {
           this.postTaxSalary = postTaxSalary;
-     }
-
-     public Employee(String employeeType, int monthlySales, float extraHours) {
-          this.employeeType = employeeType;
-          this.monthlySales = monthlySales;
-          this.extraHours = extraHours;
      }
 
      public String getEmployeeType() {
