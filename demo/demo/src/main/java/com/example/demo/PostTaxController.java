@@ -49,14 +49,14 @@ public class PostTaxController {
           postTaxEmployee.bonus = bonus;
           postTaxEmployee.preTaxSalary = preTaxSalary;
           if (preTaxSalary > 1500) {
-               postTaxEmployee.postTaxSalary = (float) (preTaxSalary *0.84);
+               postTaxEmployee.finalSalary = (float) (preTaxSalary *0.84);
                return ResponseEntity.ok(postTaxEmployee); // returning the pre tax salary
           }else if (preTaxSalary > 2000) {
-               postTaxEmployee.postTaxSalary = (float) (preTaxSalary *0.82);
+               postTaxEmployee.finalSalary = (float) (preTaxSalary *0.82);
                return ResponseEntity.ok(postTaxEmployee); // returning the pre tax salary
           }
 
-          postTaxEmployee.postTaxSalary = preTaxSalary;
+          postTaxEmployee.finalSalary = preTaxSalary;
 
           return ResponseEntity.ok(postTaxEmployee); // returning the pre tax salary
 

@@ -47,7 +47,7 @@ public class PreTaxController {
           preTaxEmployee.base_salary = base_salary;
           preTaxEmployee.bonus = bonus;
           preTaxEmployee.preTaxSalary = preTaxSalary;
-          preTaxEmployee.postTaxSalary = preTaxSalary;
+          preTaxEmployee.finalSalary = preTaxSalary;
 
           
 

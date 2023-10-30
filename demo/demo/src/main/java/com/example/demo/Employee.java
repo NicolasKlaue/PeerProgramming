@@ -8,7 +8,7 @@ public class Employee {
      public float bonus;
      public float extraHours;
      public float preTaxSalary;
-     public float postTaxSalary;
+     public float finalSalary;
 
      public Employee(String employeeType, int monthlySales, float extraHours) {
           this.employeeType = employeeType;
@@ -16,12 +16,12 @@ public class Employee {
           this.extraHours = extraHours;
      }
 
-     public float getPostTaxSalary() {
-          return postTaxSalary;
+     public float getFinalSalary() {
+          return finalSalary;
      }
 
-     public void setPostTaxSalary(float postTaxSalary) {
-          this.postTaxSalary = postTaxSalary;
+     public void setFinalSalary(float postTaxSalary) {
+          this.finalSalary = postTaxSalary;
      }
 
      public String getEmployeeType() {
