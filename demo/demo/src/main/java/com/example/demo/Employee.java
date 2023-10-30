@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class Employee {
      public String employeeType;
      public int monthlySales;
