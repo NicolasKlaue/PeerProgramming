@@ -28,8 +28,9 @@ public class MainView extends VerticalLayout {
      private TextField sales;
      private TextField hours;
      private Button AddEmployee;
-     private ComboBox<Employee> comboBox;
+     //private ComboBox<Employee> comboBox;
      private TabSheet tabsheet;
+     ComboBox<Employee> type_employee = new ComboBox<>("Type of employee");
 
      public ArrayList<Employee> employees = new ArrayList<>();
      private Grid<Employee> grid = new Grid<>(Employee.class);
@@ -54,9 +55,19 @@ public class MainView extends VerticalLayout {
           
 
           // ComboBox
-          this.comboBox = new ComboBox<Employee>("Type of employee");
-          comboBox.setItems();
+          //this.comboBox = new ComboBox<Employee>("Type of employee");
+          //comboBox.setItems();
           
+
+          ArrayList<Employee> employees = new ArrayList<>();
+          employees.add(new Employee("manager"));
+          employees.add(new Employee("seller"));
+
+          
+          type_employee.setItems(employees);
+          type_employee.setItemLabelGenerator(Employee::getType);
+
+
 
           // Components
           sales = new TextField("# Montly sales");
@@ -77,7 +88,7 @@ public class MainView extends VerticalLayout {
          
           
           hl.add(sales, hours, AddEmployee);
-          add(comboBox, hl);
+          add(type_employee, hl);
      }
 
 }

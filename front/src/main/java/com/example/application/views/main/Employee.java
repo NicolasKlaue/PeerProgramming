@@ -4,6 +4,11 @@ public class Employee {
      private String type;
      private int monthlySales = 0;
      private float extraHours = 0;
+
+     Employee(String c)
+     {
+          this.type = c;
+     }
      
      public void setType(String type) {
           this.type = type;
