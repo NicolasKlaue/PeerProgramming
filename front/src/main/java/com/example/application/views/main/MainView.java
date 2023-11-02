@@ -133,7 +133,7 @@ public class MainView extends VerticalLayout {
           HttpClient client = HttpClient.newHttpClient();
 
            HttpRequest request = HttpRequest.newBuilder()
-               .uri(URI.create("http://localhost:8080/employees/pre-tax"))
+               .uri(URI.create("http://localhost:8082/pretax"))
                .header("Content-Type", "application/json")
                .POST(HttpRequest.BodyPublishers.ofString(body))
                .build();
@@ -150,15 +150,16 @@ public class MainView extends VerticalLayout {
     public static void postHttpRequest2(Employee newEmployee){
           Gson gson = new Gson();
           String body = gson.toJson(newEmployee);
-
+          
+          
           HttpClient client = HttpClient.newHttpClient();
-
-           HttpRequest request = HttpRequest.newBuilder()
-               .uri(URI.create("http://localhost:8080/employees/after-tax"))
-               .header("Content-Type", "application/json")
-               .POST(HttpRequest.BodyPublishers.ofString(body))
-               .build();
-
+          
+          HttpRequest request = HttpRequest.newBuilder()
+          .uri(URI.create("http://localhost:8082/posttax"))
+          .header("Content-Type", "application/json")
+          .POST(HttpRequest.BodyPublishers.ofString(body))
+          .build();
+          
           try {
                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                System.out.println(response.body());
