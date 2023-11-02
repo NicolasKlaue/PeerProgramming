@@ -90,7 +90,7 @@ public class MainView extends VerticalLayout {
                Notification.show("The " + newEmployee.getType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
                
      
-               postHttpRequest1(newEmployee, false);
+               postHttpRequest1(newEmployee);
              
 
           });
@@ -105,7 +105,7 @@ public class MainView extends VerticalLayout {
                Notification.show("The " + newEmployee.getType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
                
      
-               postHttpRequest2(newEmployee, true);
+               postHttpRequest2(newEmployee);
              
 
           });
@@ -126,7 +126,7 @@ public class MainView extends VerticalLayout {
      }
 
 
-     public static void postHttpRequest1(Employee newEmployee, boolean option){
+     public static void postHttpRequest1(Employee newEmployee){
           Gson gson = new Gson();
           String body = gson.toJson(newEmployee);
 
@@ -147,7 +147,7 @@ public class MainView extends VerticalLayout {
                e.printStackTrace();
       }
     }
-    public static void postHttpRequest2(Employee newEmployee, boolean option){
+    public static void postHttpRequest2(Employee newEmployee){
           Gson gson = new Gson();
           String body = gson.toJson(newEmployee);
 
