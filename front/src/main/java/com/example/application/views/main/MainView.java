@@ -63,10 +63,10 @@ public class MainView extends VerticalLayout {
 
           
           type_employee1.setItems(employees);
-          type_employee1.setItemLabelGenerator(Employee::getType);
+          type_employee1.setItemLabelGenerator(Employee::getEmployeeType);
 
           type_employee2.setItems(employees);
-          type_employee2.setItemLabelGenerator(Employee::getType);
+          type_employee2.setItemLabelGenerator(Employee::getEmployeeType);
 
 
           // Components
@@ -85,24 +85,24 @@ public class MainView extends VerticalLayout {
                String TotalSales = sales1.getValue();
                String TotalHours = hours1.getValue();
 
-               Employee newEmployee = new Employee(type.getType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
-
-               Notification.show("The " + newEmployee.getType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
+               Employee newEmployee = new Employee(type.getEmployeeType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
                
-     
+               Notification.show("The " + newEmployee.getEmployeeType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
+               
+               
                postHttpRequest1(newEmployee);
-             
-
+               
+               
           });
           Calculate2.addClickListener(e -> {
                
                Employee type = type_employee2.getValue();
                String TotalSales = sales2.getValue();
                String TotalHours = hours2.getValue();
+               
+               Employee newEmployee = new Employee(type.getEmployeeType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
 
-               Employee newEmployee = new Employee(type.getType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
-
-               Notification.show("The " + newEmployee.getType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
+               Notification.show("The " + newEmployee.getEmployeeType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
                
      
                postHttpRequest2(newEmployee);

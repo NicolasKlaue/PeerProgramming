@@ -1,17 +1,17 @@
 package com.example.application.views.main;
 
 public class Employee {
-     private String type;
+     private String employeeType;
      private int monthlySales = 0;
      private float extraHours = 0;
 
      Employee(String c)
      {
-          this.type = c;
+          this.employeeType = c;
      }
      
-     public void setType(String type) {
-          this.type = type;
+     public void setEmployeeType(String type) {
+          this.employeeType = type;
      }
      public void setMonthlySales(int monthlySales) {
           this.monthlySales = monthlySales;
@@ -19,8 +19,8 @@ public class Employee {
      public void setExtraHours(float extraHours) {
           this.extraHours = extraHours;
      }
-     public String getType() {
-          return type;
+     public String getEmployeeType() {
+          return employeeType;
      }
      public int getMonthlySales() {
           return monthlySales;
@@ -29,7 +29,7 @@ public class Employee {
           return extraHours;
      }
      public Employee(String type, int monthlySales, float extraHours) {
-          this.type = type;
+          this.employeeType = type;
           this.monthlySales = monthlySales;
           this.extraHours = extraHours;
      }
