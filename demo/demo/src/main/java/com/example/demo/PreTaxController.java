@@ -27,7 +27,7 @@ public class PreTaxController {
           if (preTaxEmployee.employeeType.equals("Manager")){
                base_salary = 8000;
                bonus = preTaxEmployee.extraHours * 30;
-          } else if (preTaxEmployee.employeeType.equals("Employee")) {
+          } else if (preTaxEmployee.employeeType.equals("Seller")) {
                base_salary = 4000;
                bonus = preTaxEmployee.extraHours * 20;
           } else{
@@ -38,11 +38,11 @@ public class PreTaxController {
           // Calculate increase in salary depending on the number of sales
           //if montlySales are more than 1000 and less than 1500
           if ((1000 <= preTaxEmployee.monthlySales) && (1500 >= preTaxEmployee.monthlySales)){
-               preTaxSalary = base_salary + 100;
+               preTaxSalary = base_salary + 100 + bonus;
           } else if(preTaxEmployee.monthlySales > 1500){
-               preTaxSalary = base_salary + 200;
+               preTaxSalary = base_salary + 200 + bonus;
           } else{
-               preTaxSalary = base_salary;
+               preTaxSalary = base_salary + bonus;
           }
           preTaxEmployee.base_salary = base_salary;
           preTaxEmployee.bonus = bonus;

@@ -4,24 +4,18 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-//#region Imports
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.crypto.Data;
 
 import com.nimbusds.jose.shaded.gson.Gson;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.charts.model.Label;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -41,8 +35,10 @@ public class MainView extends VerticalLayout {
      private TabSheet tabsheet = new TabSheet();
      private ComboBox<Employee> type_employee1 = new ComboBox<>("Type of employee");
      private ComboBox<Employee> type_employee2 = new ComboBox<>("Type of employee");
+     private Label l = new Label();
      
-
+     TextField readonlyField = new TextField();
+     
      public ArrayList<Employee> employees = new ArrayList<>();
    
 
@@ -58,15 +54,15 @@ public class MainView extends VerticalLayout {
           
 
           ArrayList<Employee> employees = new ArrayList<>();
-          employees.add(new Employee("manager"));
-          employees.add(new Employee("seller"));
+          employees.add(new Employee("Manager"));
+          employees.add(new Employee("Seller"));
 
           
           type_employee1.setItems(employees);
-          type_employee1.setItemLabelGenerator(Employee::getType);
+          type_employee1.setItemLabelGenerator(Employee::getEmployeeType);
 
           type_employee2.setItems(employees);
-          type_employee2.setItemLabelGenerator(Employee::getType);
+          type_employee2.setItemLabelGenerator(Employee::getEmployeeType);
 
 
           // Components
@@ -80,32 +76,46 @@ public class MainView extends VerticalLayout {
           Calculate2 = new Button("Calculate");
        
           Calculate1.addClickListener(e -> {
-               
+               readonlyField.clear();
                Employee type = type_employee1.getValue();
                String TotalSales = sales1.getValue();
                String TotalHours = hours1.getValue();
 
-               Employee newEmployee = new Employee(type.getType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
-
-               Notification.show("The " + newEmployee.getType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
+               Employee newEmployee = new Employee(type.getEmployeeType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
                
-     
-               postHttpRequest1(newEmployee, false);
-             
+               Notification.show("The " + newEmployee.getEmployeeType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
+               
+               
+               float FSalary = postHttpRequest1(newEmployee,false);
+               //TextField readonlyField = new TextField();
 
+               readonlyField.setReadOnly(true);
+               readonlyField.setValue(String.valueOf(FSalary));
+               l.setText("Final Salary is: " + String.valueOf(FSalary));
+               hl.add(readonlyField);
+               
           });
           Calculate2.addClickListener(e -> {
                
+               readonlyField.clear();
                Employee type = type_employee2.getValue();
                String TotalSales = sales2.getValue();
                String TotalHours = hours2.getValue();
+               
+               Employee newEmployee = new Employee(type.getEmployeeType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
 
-               Employee newEmployee = new Employee(type.getType(), Integer.parseInt(TotalSales), Float.parseFloat(TotalHours));
-
-               Notification.show("The " + newEmployee.getType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
+               Notification.show("The " + newEmployee.getEmployeeType() + " With " + newEmployee.getMonthlySales() + " sales, and " + newEmployee.getExtraHours() + " extra hours was added successfully.");
                
      
-               postHttpRequest2(newEmployee, true);
+               float FSalary = postHttpRequest2(newEmployee, true);
+
+               //TextField readonlyField = new TextField();
+
+               readonlyField.setReadOnly(true);
+               readonlyField.setValue(String.valueOf(FSalary));
+               //hl2.add("Final Salary is: " + String.valueOf(FSalary));
+               l.setText("Final Salary is: " + String.valueOf(FSalary));
+               hl2.add(readonlyField);
              
 
           });
@@ -126,7 +136,7 @@ public class MainView extends VerticalLayout {
      }
 
 
-     public static void postHttpRequest1(Employee newEmployee, boolean option){
+     public static float postHttpRequest1(Employee newEmployee, boolean option){
           Gson gson = new Gson();
           String body = gson.toJson(newEmployee);
 
@@ -139,15 +149,23 @@ public class MainView extends VerticalLayout {
                .build();
 
           try {
+               System.out.println("Making reqquet");
                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                System.out.println(response.body());
-      }   catch (IOException e) {
+               Employee e = gson.fromJson(response.body(), Employee.class);
+               //System.out.println(e.getFinalSalary());
+               
+               return (e.getFinalSalary());
+               
+               
+      }   catch (Exception e) {
+          System.out.println("error");
+
                e.printStackTrace();
-      }   catch (InterruptedException e) {
-               e.printStackTrace();
-      }
+      }  
+          return (0);
     }
-    public static void postHttpRequest2(Employee newEmployee, boolean option){
+    public static float postHttpRequest2(Employee newEmployee, boolean option){
           Gson gson = new Gson();
           String body = gson.toJson(newEmployee);
           
@@ -163,11 +181,16 @@ public class MainView extends VerticalLayout {
           try {
                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                System.out.println(response.body());
+               Employee e = gson.fromJson(response.body(), Employee.class);
+               //System.out.println(e.getFinalSalary());
+               
+               return (e.getFinalSalary());
       }   catch (IOException e) {
                e.printStackTrace();
       }   catch (InterruptedException e) {
                e.printStackTrace();
       }
+      return (0);
     }
 
 }

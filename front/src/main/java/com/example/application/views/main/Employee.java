@@ -1,42 +1,79 @@
 package com.example.application.views.main;
 
-public class Employee {
-     private String type;
-     private int monthlySales = 0;
-     private float extraHours = 0;
 
-     Employee(String c)
-     {
-          this.type = c;
-     }
-     
-     public void setType(String type) {
-          this.type = type;
-     }
-     public void setMonthlySales(int monthlySales) {
+public class Employee {
+     public String employeeType;
+     public int monthlySales;
+     public float base_salary;
+     public float bonus;
+     public float extraHours;
+     public float preTaxSalary;
+     public float finalSalary;
+
+     public Employee(String employeeType, int monthlySales, float extraHours) {
+          this.employeeType = employeeType;
           this.monthlySales = monthlySales;
-     }
-     public void setExtraHours(float extraHours) {
           this.extraHours = extraHours;
      }
-     public String getType() {
-          return type;
+     
+     public Employee(String employeeType) {
+          this.employeeType = employeeType;
      }
+
+     public float getFinalSalary() {
+          return finalSalary;
+     }
+
+     public void setFinalSalary(float postTaxSalary) {
+          this.finalSalary = postTaxSalary;
+     }
+
+     public String getEmployeeType() {
+          return employeeType;
+     }
+
+     public void setEmployeeType(String employeeType) {
+          this.employeeType = employeeType;
+     }
+
      public int getMonthlySales() {
           return monthlySales;
      }
+
+     public void setMonthlySales(int monthlySales) {
+          this.monthlySales = monthlySales;
+     }
+
      public float getExtraHours() {
           return extraHours;
      }
-     public Employee(String type, int monthlySales, float extraHours) {
-          this.type = type;
-          this.monthlySales = monthlySales;
+
+     public void setExtraHours(float extraHours) {
           this.extraHours = extraHours;
      }
-   
-          
-     
-    
-     
-     
+
+     public float getPreTaxSalary() {
+          return preTaxSalary;
+     }
+
+     public void setPreTaxSalary(float preTaxSalary) {
+          this.preTaxSalary = preTaxSalary;
+     }
+
+     public float getBase_salary() {
+          return base_salary;
+     }
+
+     public void setBase_salary(float base_salary) {
+          this.base_salary = base_salary;
+     }
+
+     public float getBonus() {
+          return bonus;
+     }
+
+     public void setBonus(float bonus) {
+          this.bonus = bonus;
+     }
+
 }

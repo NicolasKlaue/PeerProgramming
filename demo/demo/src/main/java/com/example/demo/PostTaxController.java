@@ -28,7 +28,7 @@ public class PostTaxController {
           if (postTaxEmployee.employeeType.equals("Manager")){
                base_salary = 8000;
                bonus = postTaxEmployee.extraHours * 30;
-          } else if (postTaxEmployee.employeeType.equals("Employee")) {
+          } else if (postTaxEmployee.employeeType.equals("Seller")) {
                base_salary = 4000;
                bonus = postTaxEmployee.extraHours * 20;
           } else{
