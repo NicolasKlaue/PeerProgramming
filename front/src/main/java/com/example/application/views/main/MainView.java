@@ -48,8 +48,8 @@ public class MainView extends VerticalLayout {
           
 
           ArrayList<Employee> employees = new ArrayList<>();
-          employees.add(new Employee("manager"));
-          employees.add(new Employee("seller"));
+          employees.add(new Employee("Manager"));
+          employees.add(new Employee("Seller"));
 
           
           type_employee1.setItems(employees);
@@ -129,13 +129,14 @@ public class MainView extends VerticalLayout {
                .build();
 
           try {
+               System.out.println("Making reqquet");
                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                System.out.println(response.body());
-      }   catch (IOException e) {
+      }   catch (Exception e) {
+          System.out.println("error");
+
                e.printStackTrace();
-      }   catch (InterruptedException e) {
-               e.printStackTrace();
-      }
+      }  
     }
     public static void postHttpRequest2(Employee newEmployee){
           Gson gson = new Gson();
